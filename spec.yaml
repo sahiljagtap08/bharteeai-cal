@@ -1,0 +1,41 @@
+name: bharteeai
+region: nyc
+services:
+- name: bharteeai-backend
+  github:
+    repo: sjagtap2/bharteeai-cal
+    branch: main
+  envs:
+  - key: DATABASE_URL
+    value: ${singlestore_database_url}
+  - key: JWT_SECRET
+    value: ${jwt_secret}
+  - key: AWS_ACCESS_KEY_ID
+    value: ${aws_access_key_id}
+  - key: AWS_SECRET_ACCESS_KEY
+    value: ${aws_secret_access_key}
+  - key: AWS_REGION
+    value: ${aws_region}
+  - key: S3_BUCKET_NAME
+    value: ${s3_bucket_name}
+static_sites:
+- name: bharteeai-frontend
+  github:
+    repo: sjagtap2/bharteeai-cal
+    branch: main
+  build_command: npm run build
+  output_dir: /dist
+
+# Add this ingress configuration
+ingress:
+  rules:
+    - component:
+        name: bharteeai-backend
+      match:
+        path:
+          prefix: /api
+    - component:
+        name: bharteeai-frontend
+      match:
+        path:
+          prefix: /

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "chromadb": "^1.9.2",
+    "chromadb-default-embed": "^2.13.2"
+  },
+  "scripts": {
+  "dev": "npm run-script "
+}
+}
